@@ -4,6 +4,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { StoreModule } from '@ngrx/store';
 
 @NgModule({
   declarations: [
@@ -12,7 +13,11 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    StoreModule.forRoot({}),
+    //fontawesoni nije installed
+    //mzd mat ui
+    //HttpClienModule ne prepoznaje ga??
   ],
   providers: [],
   bootstrap: [AppComponent]
