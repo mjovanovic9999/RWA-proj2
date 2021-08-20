@@ -5,23 +5,29 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { StoreModule } from '@ngrx/store';
-import { NoteComponent } from './components/note/note.component';
 
-import { MatSliderModule } from '@angular/material/slider';
-import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
+import { reducers, metaReducers } from './reducers';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+import { EffectsModule } from '@ngrx/effects';
+import { AppEffects } from './app.effects';
+import { NoteCardModule } from './note-card/note-card.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
-  declarations: [AppComponent, NoteComponent],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     StoreModule.forRoot({}),
+    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(reducers, { metaReducers }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    EffectsModule.forRoot([AppEffects]),
+    NoteCardModule,
+    MatCardModule
     //fontawesoni nije installed
-    //mzd mat ui
     //HttpClienModule ne prepoznaje ga??
   ],
   providers: [],
