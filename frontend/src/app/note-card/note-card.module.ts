@@ -2,25 +2,29 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CardComponent } from './components/card/card.component';
 
-import {MatCardActions, MatCardModule, MatCardSubtitle, MatCardTitle} from '@angular/material/card'
-import {MatButtonModule} from '@angular/material/button'
-import {MatIconModule} from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { CardListComponent } from './components/card-list/card-list.component';
 
 @NgModule({
-  declarations: [
-    CardComponent
-  ],
+  declarations: [CardComponent, CardListComponent],
   imports: [
     MatCardModule,
     MatButtonModule,
     MatIconModule,
-    MatCardSubtitle,
-    MatCardTitle,
-    MatCardActions,
-    CommonModule
+    
+    MatGridListModule,
+    CommonModule,
   ],
-  exports:[
-    CardComponent
-  ]
+  exports: [
+    CardComponent,
+    CardListComponent,
+    // MatCardModule,
+    // MatButtonModule,
+    // MatIconModule,
+    // MatGridListModule,
+  ],
 })
-export class NoteCardModule { }
+export class NoteCardModule {}

@@ -11,8 +11,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
+import {  MatCardModule } from '@angular/material/card';
 import { NoteCardModule } from './note-card/note-card.module';
-import { MatCardModule } from '@angular/material/card';
+import { ToolbarModule } from './toolbar/toolbar.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,10 +28,13 @@ import { MatCardModule } from '@angular/material/card';
     StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([AppEffects]),
+    MatCardModule,
     NoteCardModule,
-    MatCardModule
+    ToolbarModule,
+    FontAwesomeModule,
     //fontawesoni nije installed
     //HttpClienModule ne prepoznaje ga??
+
   ],
   providers: [],
   bootstrap: [AppComponent],
