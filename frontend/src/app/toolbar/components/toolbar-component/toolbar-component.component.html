@@ -1,60 +1,7 @@
 <mat-toolbar color="primary" class="toolbar">
   <span class="example-spacer"></span>
-
   <span>MyNotes</span>
   <span class="example-spacer"></span>
-
-  <button
-    mat-icon-button
-    class="example-icon favorite-icon"
-    aria-label="Example icon-button with heart icon"
-  >
-    <mat-icon>favorite</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-    <mat-icon>share</mat-icon>
-  </button>
-  <button
-    mat-icon-button
-    class="example-icon"
-    aria-label="Example icon-button with share icon"
-  >
-  <fa-icon [icon]="faUser"  size="2x"></fa-icon>
-  </button>
-  <fa-icon [icon]="faUser"  size="2x"></fa-icon>
-
+  <fa-icon [icon]="faUser" size="lg" (click)="openAccount()"></fa-icon>
 </mat-toolbar>
-<!-- <mat-toolbar color="primary" class="toolbar">
-  <div class="container">
-    <div class="item"></div>
-    <div class="item"><span>MyNotes</span></div>
-    <div class="item">
-      <button
-        mat-icon-button
-        class="example-icon favorite-icon"
-        aria-label="Example icon-button with heart icon"
-      >
-        <mat-icon>favorite</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
-        <mat-icon>share</mat-icon>
-      </button>
-      <button
-        mat-icon-button
-        class="example-icon"
-        aria-label="Example icon-button with share icon"
-      >
-        <mat-icon>account</mat-icon>
-      </button>
-    </div>
-  </div>
-</mat-toolbar>
- -->
+<app-account-dialog></app-account-dialog>

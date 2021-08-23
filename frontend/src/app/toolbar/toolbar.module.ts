@@ -4,10 +4,32 @@ import { ToolbarComponentComponent } from './components/toolbar-component/toolba
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AccountDialogComponent } from './components/account-dialog/account-dialog.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+
 
 @NgModule({
-  declarations: [ToolbarComponentComponent],
-  imports: [CommonModule, MatToolbarModule, MatIconModule, FontAwesomeModule],
-  exports: [ToolbarComponentComponent],
+  declarations: [
+    ToolbarComponentComponent,
+    AccountDialogComponent,
+  ],
+  imports: [
+    CommonModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatFormFieldModule,
+    MatInputModule,
+    FontAwesomeModule,
+    MatSelectModule ,
+    BrowserAnimationsModule,//visak
+    BrowserModule, //isto
+    FormsModule,//issto 
+  ],
+  exports: [ToolbarComponentComponent,MatInputModule],
 })
 export class ToolbarModule {}
