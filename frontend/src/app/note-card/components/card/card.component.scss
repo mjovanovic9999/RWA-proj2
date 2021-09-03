@@ -4,12 +4,25 @@
   // background-color: #1ca480;
   display: flex;
   flex-direction: column;
-  margin:20px;
+  margin: 20px;
 }
 mat-card-actions {
-  margin-top:auto;
+  margin-top: auto;
 }
 
-.mat-card-title{
+.mat-card-title {
   font-size: x-larger;
+}
+
+.Text {
+  width: 95%;
+  overflow: hidden;
+  word-break: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 7;
+  -webkit-box-orient: vertical;
+  text-align: justify;
+  text-justify: auto;
+  white-space: pre-wrap;
+  overflow: hidden;
 }

@@ -7,15 +7,22 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { CardListComponent } from './components/card-list/card-list.component';
+import { NoteDialogComponent } from './components/note-dialog/note-dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 
 @NgModule({
-  declarations: [CardComponent, CardListComponent],
+  declarations: [CardComponent, CardListComponent, NoteDialogComponent],
   imports: [
     MatCardModule,
     MatButtonModule,
+    MatDialogModule,
     MatIconModule,
+    MatFormFieldModule,
     MatDividerModule,
     MatGridListModule,
+    MatInputModule,
     CommonModule,
   ],
   exports: [

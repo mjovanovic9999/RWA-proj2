@@ -9,7 +9,41 @@ import { Note } from '../../models/note';
 export class CardListComponent implements OnInit {
 
   public notesList:Note[]=[
-    {id:1, title: "dfdfdf" ,content:"cdcd"},
+    {id:1, title: "dfdfdf" ,content:`cdcdwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww < wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    w
+    w
+    w
+      
+
+    w
+    w
+    w
+    w
+    w
+    w
+    w
+    w
+
+    w
+    w
+    w
+    w
+
+    w
+    ww
+    w
+    w
+    w
+    w
+    w
+    w
+    w
+    w
+    w
+
+    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+    wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww`},
     {id:1, title: "dfdfdf" ,content:"cdcd"},
     {id:1, title: "dfdfdf" ,content:"cdcd"},
     {id:1, title: "dfdfdf" ,content:"cdcd"},
