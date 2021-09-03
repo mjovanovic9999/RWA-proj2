@@ -7,12 +7,13 @@
   align-items: flex-start;
 }
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";//nzm treba li
 .example-form {
   min-width: 150px;
   max-width: 500px;
   width: 100%;
+  background-color: darkblue;
 }
 .example-full-width {
-    width: 100%;
-  }
+  width: 100%;
+}

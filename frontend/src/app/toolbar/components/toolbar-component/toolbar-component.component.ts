@@ -10,14 +10,14 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 export class ToolbarComponentComponent implements OnInit {
   faUser = faUser;
 
-  openAccountDialog=false;
+  openAccountDialog = false;
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  openAccount(){
-    this.openAccountDialog=true;    
+  openAccount() {
+    this.openAccountDialog = true;
   }
 }
 //primer <input matInput [(ngModel)]="name">

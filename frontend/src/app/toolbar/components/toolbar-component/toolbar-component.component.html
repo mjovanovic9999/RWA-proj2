@@ -4,4 +4,4 @@
   <span class="example-spacer"></span>
   <fa-icon [icon]="faUser" size="lg" (click)="openAccount()"></fa-icon>
 </mat-toolbar>
-<app-account-dialog></app-account-dialog>
+<app-account-dialog *ngIf="openAccountDialog"></app-account-dialog>
