@@ -1,0 +1,33 @@
+<mat-card>
+  <div class="IconDiv">
+    <fa-icon [icon]="faUserCircle" class="LoginIcon" size="3x"> </fa-icon>
+  </div>
+  <mat-card-title> Login </mat-card-title>
+  <mat-card-content>
+    <form>
+      <!-- [formGroup]="form" (ngSubmit)="submit()" -->
+      <mat-form-field appearance="fill">
+        <mat-label>Username</mat-label>
+        <input type="text" matInput formControlName="username" />
+      </mat-form-field>
+
+      <mat-form-field appearance="fill" class="Poslednji">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput formControlName="password" />
+      </mat-form-field>
+      <div class="NewAccount">
+        <a (click)="NewAccount()">Don't have an account?</a>
+      </div>
+
+      <!-- <p *ngIf="error" class="error">
+    {{ error }}
+  </p> -->
+
+      <div class="buttons">
+        <button mat-raised-button color="primary" (click)="Login()">
+          Sign in
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

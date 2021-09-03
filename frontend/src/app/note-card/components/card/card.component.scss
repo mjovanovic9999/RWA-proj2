@@ -1,5 +1,15 @@
 .card {
-  max-width: 400px;
-  max-height: 100px;
-  background-color: red;
+  width: 400px;
+  height: 220px;
+  // background-color: #1ca480;
+  display: flex;
+  flex-direction: column;
+  margin:20px;
+}
+mat-card-actions {
+  margin-top:auto;
+}
+
+.mat-card-title{
+  font-size: x-larger;
 }

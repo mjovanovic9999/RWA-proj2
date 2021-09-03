@@ -11,11 +11,11 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { AppEffects } from './app.effects';
-import {  MatCardModule } from '@angular/material/card';
+import { MatCardModule } from '@angular/material/card';
 import { NoteCardModule } from './note-card/note-card.module';
 import { ToolbarModule } from './toolbar/toolbar.module';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-
+import { StartScreenModule } from './start-screen/start-screen.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -32,9 +32,9 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     NoteCardModule,
     ToolbarModule,
     FontAwesomeModule,
+    StartScreenModule,
     //fontawesoni nije installed
     //HttpClienModule ne prepoznaje ga??
-
   ],
   providers: [],
   bootstrap: [AppComponent],

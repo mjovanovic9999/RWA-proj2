@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { AccountDialogComponent } from '../account-dialog/account-dialog.component';
 
 @Component({
   selector: 'app-toolbar-component',
@@ -12,12 +14,21 @@ export class ToolbarComponentComponent implements OnInit {
 
   openAccountDialog = false;
 
-  constructor() {}
+  constructor(public accountDialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   openAccount() {
-    this.openAccountDialog = true;
+    let dialog = this.accountDialog.open(AccountDialogComponent, {
+      data: { username: 'Toma123' },
+      width: '350px',
+      minHeight: '200px',
+      maxHeight: '600px',
+      disableClose: true,
+    });
+    dialog.afterClosed().subscribe((result) => {
+      console.log(result);
+    });
   }
 }
 //primer <input matInput [(ngModel)]="name">

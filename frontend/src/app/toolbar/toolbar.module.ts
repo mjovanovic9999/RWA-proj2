@@ -11,7 +11,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { FormsModule } from '@angular/forms';
     CommonModule,
     MatToolbarModule,
     MatIconModule,
+    MatButtonModule,
     MatFormFieldModule,
     MatInputModule,
     FontAwesomeModule,
@@ -29,6 +31,7 @@ import { FormsModule } from '@angular/forms';
     BrowserAnimationsModule,//visak
     BrowserModule, //isto
     FormsModule,//issto 
+    MatDialogModule
   ],
   exports: [ToolbarComponentComponent,MatInputModule],
 })

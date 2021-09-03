@@ -1,0 +1,59 @@
+:host {
+  display: flex;
+  justify-content: center;
+  margin: 100px 0px;
+}
+
+.mat-form-field {
+  width: 100%;
+  min-width: 300px;
+}
+
+mat-card-title,
+mat-card-content {
+  display: flex;
+  justify-content: center;
+}
+
+.error {
+  padding: 16px;
+  width: 300px;
+  color: white;
+  background-color: red;
+}
+
+.buttons {
+    padding-top: 5px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+//provera iznad
+
+.LoginIcon {
+  color: #801ca4;
+}
+
+.IconDiv {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+}
+
+.NewAccount {
+  padding-bottom: 10px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.NewAccount:hover {
+  color: #801ca4;
+}
+
+form {
+  width: 350px;
+}
+
+.Poslednji {
+  margin-bottom: -1em;
+}
