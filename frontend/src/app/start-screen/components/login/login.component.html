@@ -16,7 +16,9 @@
         <input type="password" matInput formControlName="password" />
       </mat-form-field>
       <div class="NewAccount">
-        <a (click)="NewAccount()">Don't have an account?</a>
+        <a routerLink="/newaccount" routerLinkActive="active"
+          >Don't have an account?</a
+        >
       </div>
 
       <!-- <p *ngIf="error" class="error">

@@ -13,11 +13,22 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
+import { HomeComponent } from './components/home/home.component';
+import { CardListComponent } from './components/card-list/card-list.component';
+import { CardComponent } from './components/card/card.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { NoteDialogComponent } from './components/note-dialog/note-dialog.component';
 
 @NgModule({
   declarations: [
     ToolbarComponentComponent,
     AccountDialogComponent,
+    HomeComponent,
+    CardComponent,
+    CardListComponent,
+    NoteDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -27,12 +38,15 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatInputModule,
     FontAwesomeModule,
-    MatSelectModule ,
-    BrowserAnimationsModule,//visak
+    MatSelectModule,
+    BrowserAnimationsModule, //visak
     BrowserModule, //isto
-    FormsModule,//issto 
-    MatDialogModule
+    FormsModule, //issto
+    MatDialogModule,
+    MatDividerModule,
+    MatGridListModule,
+    MatCardModule,
   ],
-  exports: [ToolbarComponentComponent,MatInputModule],
+  exports: [ HomeComponent],
 })
-export class ToolbarModule {}
+export class HomeModule {}

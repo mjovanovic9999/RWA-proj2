@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { Note } from '../../models/note';
+import { Note } from '../../../models/note';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
 @Component({
@@ -58,8 +58,6 @@ export class CardComponent implements OnInit {
       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwdnfuifehg78owyhr7iouyghykjzosergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk` },
       width: '900px',
       height:"700px",
-  
-      disableClose: true,
     });
     dialog.afterClosed().subscribe((result) => {
       console.log(result);

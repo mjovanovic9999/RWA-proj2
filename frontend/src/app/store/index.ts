@@ -6,8 +6,8 @@ import {
   MetaReducer
 } from '@ngrx/store';
 import { environment } from '../../environments/environment';
-//ceo folder visak
 
+//mozda ne treba file
 export interface State {
 
 }

@@ -9,13 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
-
-
 @NgModule({
-  declarations: [
-    LoginComponent,
-    NewAccountComponent
-  ],
+  declarations: [LoginComponent, NewAccountComponent],
   imports: [
     CommonModule,
     MatFormFieldModule,
@@ -25,9 +20,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     MatIconModule,
     FontAwesomeModule,
   ],
-  exports:[
-    LoginComponent,
-    NewAccountComponent
-  ]
+
+  exports: [LoginComponent, NewAccountComponent],
 })
-export class StartScreenModule { }
+export class StartScreenModule {}
