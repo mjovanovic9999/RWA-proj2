@@ -1,5 +1,5 @@
 <mat-grid-list cols="4" rowHeight="300px">
-    <mat-grid-tile *ngFor="let itemNote of notesList">
+    <mat-grid-tile *ngFor="let itemNote of notesList | async">
         <app-card [note]="itemNote"></app-card>
     </mat-grid-tile>
 </mat-grid-list>

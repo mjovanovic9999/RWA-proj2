@@ -1,6 +1,7 @@
-import { MoviesState } from "./user/user.reducer";
+import { NotesState } from './notes/notes.reducer';
+import { UserState } from './user/user.reducer';
 
 export interface AppState {
-    movies: MoviesState;
-    // user
+  notes: NotesState;
+  user: UserState;
 }

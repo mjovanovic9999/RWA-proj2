@@ -1,34 +1,23 @@
-import { createEntityAdapter, EntityState } from "@ngrx/entity";
-import { createReducer, on } from "@ngrx/store";
-import { Note } from "..//../models/note";
-import * as Actions from "./user.actions";
+import { createEntityAdapter } from '@ngrx/entity';
+import { createReducer } from '@ngrx/store';
+import { User } from 'src/app/models/user';
 
-
-export interface MoviesState extends EntityState<Note> {
-    selectedMovieId: string;
+export interface UserState /* extends EntityState<Note>  nzm treba li*/ {
+  currentUserId: number;
 }
 
-const adapter = createEntityAdapter<Note>();
+const adapter = createEntityAdapter<User>();
 
-const initialState : MoviesState = adapter.getInitialState({
-    selectedMovieId: ""
+const initialState: UserState = adapter.getInitialState({
+  currentUserId: -1,
 });
 
-
-
-export const moviesReducer = createReducer(initialState,
-    // on(Actions.changeRating, (state, {movieId, rating} ) => {
-    //     const targetMovie = state.entities[movieId];
-    //     if (targetMovie) {
-    //         return adapter.setOne({...targetMovie, score: rating}, state);
-    //     } else {
-    //         return state;
-    //     }
-    // }),
-    // on(Actions.loadMoviesSuccess, (state, {movies}) => adapter.setAll(movies, state)
-    // ),
-    // on(Actions.selectMovie, (state, {movieId}) => ({
-    //     ...state,
-    //     selectedMovieId: movieId
-    // }))
-)
+export const userReducer = createReducer(
+  initialState
+  //,
+  //  on(Actions.loadNotes,(state)=>
+  //  {
+  //       return {...state};//gde je tu effect
+  //  }
+  //  )
+);

@@ -8,10 +8,13 @@ import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
-import { AppEffects } from './app.effects';
 import { HomeModule } from './home/home.module';
 import { StartScreenModule } from './start-screen/start-screen.module';
 import { reducers, metaReducers } from './store';
+import { notesReducer } from './store/notes/notes.reducer';
+import { userReducer } from './store/user/user.reducer';
+import { NotesEffect } from './store/notes/notes.effects';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,13 +22,15 @@ import { reducers, metaReducers } from './store';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({}),
-    StoreModule.forRoot({}, {}),
-    StoreModule.forRoot(reducers, { metaReducers }),
+    StoreModule.forRoot({notes: notesReducer,user:userReducer}),
+    StoreDevtoolsModule.instrument({maxAge:20}),
+    // StoreModule.forRoot({}, {}), //nzm sta vi radite tu
+    // StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([AppEffects]),
+    EffectsModule.forRoot([NotesEffect]),
     HomeModule,
     StartScreenModule,
+    HttpClientModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
