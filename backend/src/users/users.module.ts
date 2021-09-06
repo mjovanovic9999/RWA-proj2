@@ -7,10 +7,13 @@ import { UsersController } from './users.controller';
 import { UsersService } from './users.service';
 
 @Module({
-  imports: [    JwtModule.register({
-    secret: 'SeCrEt',
-    signOptions: { expiresIn: '1h' },
-  }),MongooseModule.forFeature([{ name: 'User', schema: UserSchema }])],
+  imports: [
+    JwtModule.register({
+      secret: 'SeCrEt',
+      signOptions: { expiresIn: '1h' },
+    }),
+    MongooseModule.forFeature([{ name: 'User', schema: UserSchema }]),
+  ],
   controllers: [UsersController],
   providers: [UsersService],
 })

@@ -6,19 +6,36 @@ import {
   Param,
   Patch,
   Delete,
+  Req,
+  UnauthorizedException,
+  UseGuards,
 } from '@nestjs/common';
+// import { JwtService } from '@nestjs/jwt';
+import { Response, Request } from 'express';
+import { AuthGuard } from 'src/notes/auth.guard';
 
 import { NotesService } from './notes.service';
 
 @Controller('notes')
 export class NotesController {
-  constructor(private readonly notesService: NotesService) {}
+  constructor(
+    private readonly notesService: NotesService,
+    // private jwtService: JwtService,
+  ) {}
 
-  @Post()
+  @UseGuards(AuthGuard)
+  @Post("new")
   async addNote(
     @Body('title') noteTitle: string,
     @Body('content') noteContent: string,
+    //@Req() request: Request,
   ) {
+    // const cookie = request.cookies['jwt'];
+    // const data = await this.jwtService.verifyAsync(cookie);
+    // if (!data) throw new UnauthorizedException();
+
+    // return data['username'];
+
     const generatedId = await this.notesService.createNote(
       noteTitle,
       noteContent,

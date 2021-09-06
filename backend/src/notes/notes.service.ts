@@ -11,8 +11,12 @@ export class NotesService {
   constructor(@InjectModel('Note') private readonly noteModel: Model<Note>) {}
 
   async createNote(title: string, content: string) {
-    const newNote = new this.noteModel({ title: title, content: content });
-    this.notes.push(newNote);
+    const newNote = new this.noteModel({
+      note_id:"noteee",
+      username: 'PROBA',
+      title: title,
+      content: content,
+    }); //mozda tu treba note_id: string; a mozda uopste ne treba lol
     const result = await newNote.save();
     return result.id as string;
   }
@@ -62,7 +66,7 @@ export class NotesService {
       throw new NotFoundException('Could not find note.');
     }
     return {
-      note_id:note.note_id,
+      note_id: note.note_id,
       username: note.username,
       title: note.title,
       content: note.content,

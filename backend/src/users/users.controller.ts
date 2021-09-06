@@ -33,11 +33,12 @@ export class UsersController {
       throw new BadRequestException('Username Already Exists!');
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 12);
     const user = await this.userService.registerUser(username, hashedPassword);
 
     return user.username;
   }
+
   @Post('login')
   async login(
     @Body('username') username: string,
@@ -64,12 +65,8 @@ export class UsersController {
   async user(@Req() request: Request) {
     try {
       const cookie = request.cookies['jwt'];
-
       const data = await this.jwtService.verifyAsync(cookie);
-
       if (!data) throw new UnauthorizedException();
-
-      // const user = await this.userService.findUser(data['username']);
 
       return data['username'];
     } catch (e) {
