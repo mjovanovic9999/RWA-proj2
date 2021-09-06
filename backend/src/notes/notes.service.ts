@@ -17,33 +17,36 @@ export class NotesService {
     return result.id as string;
   }
 
-async getUserNotes(title: string) {
+  async getUserNotes(title: string) {
     //moze i svaki obj da se mapira
-    const result = await this.noteModel.find({title:title}).exec();
+    const result = await this.noteModel.find({ username: title }).exec();
     console.log(result);
-    return [...result];
+    console.log(title);
+    return result.map((note) => note);
   }
-//backup od gore  async getUserNotes(username: string) {
+  //backup od gore  async getUserNotes(username: string) {
   //   moze i svaki obj da se mapira
   //   const result = await this.noteModel.find();
   //   console.log(result);
   //   return [...result];
   // }
-  getSingleNote(noteId: string) {
-    const note = this.findNote(noteId)[0];
-    return { ...note };
+  async getSingleNote(noteId: string) {
+    const note = await this.findNote(noteId);
+    console.log(note);
+
+    return note;
   }
 
   updateNote(noteId: string, title: string, content: string) {
-    const [note, index] = this.findNote(noteId);
+    const note = this.findNote(noteId);
     const updatedNote = { ...note };
-    if (title) {
-      updatedNote.title = title;
-    }
-    if (content) {
-      updatedNote.content = content;
-    }
-    this.notes[index] = updatedNote;
+    // if (title) {
+    //   updatedNote.title = title;
+    // }
+    // if (content) {
+    //   updatedNote.content = content;
+    // }
+    // this.notes[index] = updatedNote;
   }
 
   deleteNote(noteId: string) {
@@ -51,12 +54,18 @@ async getUserNotes(title: string) {
     this.notes.splice(index, 1);
   }
 
-  private findNote(id: string): [Note, number] {
-    const noteIndex = this.notes.findIndex((note) => note.note_id === id);
-    const note = this.notes[noteIndex];
+  private async findNote(id: string): Promise<Note> {
+    const note = await this.noteModel.findById(id);
+    console.log('note');
+    console.log(note);
     if (!note) {
       throw new NotFoundException('Could not find note.');
     }
-    return [note, noteIndex];
+    return {
+      note_id:note.note_id,
+      username: note.username,
+      title: note.title,
+      content: note.content,
+    };
   }
 }

@@ -26,9 +26,10 @@ export class NotesController {
     return { id: generatedId };
   }
 
-  @Get('/user/:title')
-  getAllNotes(@Param('title') title: string) {
-    return this.notesService.getUserNotes(title); //username
+  @Get()
+  async getAllNotes(@Param('username') username: string) {
+    const notes = await this.notesService.getUserNotes(username); //username
+    return notes;
   }
   // backap od iznad @Get()
   // getAllNotes() {
