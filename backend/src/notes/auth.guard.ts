@@ -1,6 +1,10 @@
-import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+import {
+  Injectable,
+  CanActivate,
+  ExecutionContext,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { Observable } from 'rxjs';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -8,10 +12,19 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
+
     const cookie = request.cookies['jwt'];
-    if (!cookie) return false;
-    const data = await this.jwtService.verifyAsync(cookie);
-    if (!data) return false;
+    if (!cookie) throw new UnauthorizedException();
+    let data;
+    
+    try {
+      data = await this.jwtService.verifyAsync(cookie);
+    } catch (error) {
+      throw new UnauthorizedException('JWT Expired');
+    }
+
+    if (!data) throw new UnauthorizedException();
+
     return true;
   }
 }

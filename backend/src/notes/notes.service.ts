@@ -1,75 +1,87 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-
+import { Request } from 'express';
 import { Note } from './note.model';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class NotesService {
-  private notes: Note[] = [];
+  constructor(
+    @InjectModel('Note') private readonly noteModel: Model<Note>,
+    private jwtService: JwtService,
+  ) {}
 
-  constructor(@InjectModel('Note') private readonly noteModel: Model<Note>) {}
-
-  async createNote(title: string, content: string) {
+  async createNote(request: Request, title: string, content: string) {
     const newNote = new this.noteModel({
-      note_id:"noteee",
-      username: 'PROBA',
+      username: await this.getUsernameFromCookie(request),
       title: title,
       content: content,
-    }); //mozda tu treba note_id: string; a mozda uopste ne treba lol
+    });
     const result = await newNote.save();
-    return result.id as string;
+    return result.id;
   }
 
-  async getUserNotes(title: string) {
-    //moze i svaki obj da se mapira
-    const result = await this.noteModel.find({ username: title }).exec();
-    console.log(result);
-    console.log(title);
-    return result.map((note) => note);
+  async getAllUserNotes(request: Request): Promise<Note[]> {
+    const result = await this.noteModel
+      .find({ username: await this.getUsernameFromCookie(request) })
+      .exec();
+    return result.map((res) => this.MapToNote(res));
   }
-  //backup od gore  async getUserNotes(username: string) {
-  //   moze i svaki obj da se mapira
-  //   const result = await this.noteModel.find();
-  //   console.log(result);
-  //   return [...result];
-  // }
-  async getSingleNote(noteId: string) {
-    const note = await this.findNote(noteId);
+
+  async getSingleNoteById(request: Request, noteId: string) {
+    const note = await this.MapToNote(await this.findNote(request, noteId));
     console.log(note);
+    return note;
+  }
+
+  async updateNote(
+    request: Request,
+    noteId: string,
+    title: string,
+    content: string,
+  ) {
+    const newNote = await this.findNote(request, noteId);
+
+    if (title) newNote.title = title;
+
+    if (content) newNote.content = content;
+
+    newNote.save();
+    return newNote;
+  }
+
+  async deleteNote(request: Request, noteId: string) {
+    const noteForDelete = await this.findNote(request, noteId);
+    await noteForDelete.deleteOne();
+  }
+
+  private async findNote(request: Request, note_id: string): Promise<Note> {
+    let note;
+    try {
+      note = await this.noteModel.findById(note_id).exec();
+    } catch (error) {
+      throw new NotFoundException('Could not find note.');
+    }
+
+    if (!note || (await this.getUsernameFromCookie(request)) !== note.username)
+      throw new NotFoundException('Could not find note.');
 
     return note;
   }
 
-  updateNote(noteId: string, title: string, content: string) {
-    const note = this.findNote(noteId);
-    const updatedNote = { ...note };
-    // if (title) {
-    //   updatedNote.title = title;
-    // }
-    // if (content) {
-    //   updatedNote.content = content;
-    // }
-    // this.notes[index] = updatedNote;
+  private async getUsernameFromCookie(request: Request): Promise<string> {
+    const cookie = request.cookies['jwt'];
+    const data = await this.jwtService.verifyAsync(cookie);
+    return data['username'];
   }
 
-  deleteNote(noteId: string) {
-    const index = this.findNote(noteId)[1];
-    this.notes.splice(index, 1);
-  }
-
-  private async findNote(id: string): Promise<Note> {
-    const note = await this.noteModel.findById(id);
-    console.log('note');
-    console.log(note);
-    if (!note) {
-      throw new NotFoundException('Could not find note.');
-    }
+  private MapToNote(oldNote: Note): any {
     return {
-      note_id: note.note_id,
-      username: note.username,
-      title: note.title,
-      content: note.content,
+      note_id: oldNote.id,
+      username: oldNote.username,
+      title: oldNote.title,
+      content: oldNote.content,
     };
   }
 }

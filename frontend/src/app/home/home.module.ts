@@ -20,6 +20,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NoteDialogComponent } from './components/note-dialog/note-dialog.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { NoteDialogComponent } from './components/note-dialog/note-dialog.compon
     MatDividerModule,
     MatGridListModule,
     MatCardModule,
+    RouterModule 
   ],
   exports: [ HomeComponent],
 })

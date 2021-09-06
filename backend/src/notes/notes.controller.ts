@@ -7,70 +7,65 @@ import {
   Patch,
   Delete,
   Req,
-  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-// import { JwtService } from '@nestjs/jwt';
-import { Response, Request } from 'express';
+import {  Request } from 'express';
 import { AuthGuard } from 'src/notes/auth.guard';
 
 import { NotesService } from './notes.service';
 
 @Controller('notes')
 export class NotesController {
-  constructor(
-    private readonly notesService: NotesService,
-    // private jwtService: JwtService,
-  ) {}
+  constructor(private readonly notesService: NotesService) {}
 
   @UseGuards(AuthGuard)
-  @Post("new")
+  @Post('new')
   async addNote(
+    @Req() request: Request,
     @Body('title') noteTitle: string,
     @Body('content') noteContent: string,
-    //@Req() request: Request,
   ) {
-    // const cookie = request.cookies['jwt'];
-    // const data = await this.jwtService.verifyAsync(cookie);
-    // if (!data) throw new UnauthorizedException();
-
-    // return data['username'];
-
     const generatedId = await this.notesService.createNote(
+      request,
       noteTitle,
       noteContent,
     );
-    return { id: generatedId };
+    return {
+      message: 'success',
+    };
   }
 
+  @UseGuards(AuthGuard)
   @Get()
-  async getAllNotes(@Param('username') username: string) {
-    const notes = await this.notesService.getUserNotes(username); //username
+  async getAllNotes(@Req() request: Request) {
+    const notes = await this.notesService.getAllUserNotes(request);
     return notes;
   }
-  // backap od iznad @Get()
-  // getAllNotes() {
-  //   return this.notesService.getUserNotes("Tom");//username
-  // }
 
+  @UseGuards(AuthGuard)
   @Get(':id')
-  getNote(@Param('id') noteId: string) {
-    return this.notesService.getSingleNote(noteId);
-  }
-
-  @Patch(':id')
-  updateNote(
-    @Param('id') prodId: string,
-    @Body('title') prodTitle: string,
-    @Body('description') prodDesc: string,
+  async getSingleNoteById(
+    @Req() request: Request,
+    @Param('id') noteId: string,
   ) {
-    this.notesService.updateNote(prodId, prodTitle, prodDesc);
-    return null;
+    return this.notesService.getSingleNoteById(request, noteId);
   }
 
+  @UseGuards(AuthGuard)
+  @Patch(':id')
+  async updateNote(
+    @Req() request: Request,
+    @Param('id') noteId: string,
+    @Body('title') title: string,
+    @Body('content') content: string,
+  ) {
+    return await this.notesService.updateNote(request, noteId, title, content);
+  }
+
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  removeNote(@Param('id') prodId: string) {
-    this.notesService.deleteNote(prodId);
+  async removeNote(@Req() request: Request, @Param('id') prodId: string) {
+    await this.notesService.deleteNote(request, prodId);
     return null;
   }
 }

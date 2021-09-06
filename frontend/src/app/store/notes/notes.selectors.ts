@@ -1,6 +1,6 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { Note } from '../../models/note';
-import { AppState } from '../app-state';
+import { AppState } from '../app.state';
 import { NotesState } from './notes.reducer';
 
 export const selectNotesFeature = createSelector(

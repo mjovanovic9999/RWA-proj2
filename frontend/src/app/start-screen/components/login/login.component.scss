@@ -43,10 +43,8 @@ mat-card-content {
   padding-bottom: 10px;
   display: flex;
   justify-content: flex-end;
-}
-
-.NewAccount:hover {
-  color: #801ca4;
+  color: white;
+  font-size: 15px;
 }
 
 form {
@@ -54,5 +52,5 @@ form {
 }
 
 .Poslednji {
-  margin-bottom: -0.5em;
+  margin-bottom: -0.75em;
 }

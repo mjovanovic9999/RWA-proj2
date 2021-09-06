@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable, of } from 'rxjs';
-import { AppState } from 'src/app/store/app-state';
+import { AppState } from 'src/app/store/app.state';
 import { selectNote } from 'src/app/store/notes/notes.actions';
 import { selectAllNotes } from 'src/app/store/notes/notes.selectors';
 import { Note } from '../../../models/note';

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
+import { environment } from './environments/environment';
+
 import { NotesModule } from './notes/notes.module';
 import { UsersModule } from './users/users.module';
 
@@ -10,11 +10,10 @@ import { UsersModule } from './users/users.module';
     NotesModule,
     UsersModule,
     MongooseModule.forRoot(
-      //`mongodb://localhost:27017/?readPreference=primary&appname=MongoDB%20Compass&directConnection=true&ssl=false`
-      'mongodb://localhost:27017/mynotes',
+      environment.dbURL,
     ),
-  ], //da de u environments
-  controllers: [AppController],
-  providers: [AppService],
+  ],
+  controllers: [],
+  providers: [],
 })
 export class AppModule {}
