@@ -2,16 +2,25 @@ import { createAction, props } from '@ngrx/store';
 import { Note } from '../../models/note';
 //add dugme dodati
 //dodati delete
-export const changeNote = createAction(
-  'Change Note',
+export const updateNote = createAction(
+  'Update Note',
   props<{
-    noteId: number;
+    noteId: string;
     title: string;
     content: string;
   }>()
 );
 
-export const addNote = createAction(
+export const updateNotesSuccess = createAction(
+  'Update Note Success',
+  props<{
+    noteId: string;
+    title: string;
+    content: string;
+  }>()
+);
+
+export const addNewNote = createAction(
   'Add Note',
   props<{
     title: string;
@@ -19,21 +28,39 @@ export const addNote = createAction(
   }>()
 );
 
-export const loadMoviesSuccess = createAction(
+export const addNewNoteSuccess = createAction(
+  'Add Note Success',
+  props<{
+    noteId: string;
+    title: string;
+    content: string;
+  }>()
+);
+
+export const loadNotes = createAction('Load Notes');
+
+export const loadNotessSuccess = createAction(
   'Load Notes Success',
   props<{ notes: Note[] }>()
 );
 
-export const loadNotes = createAction(
-  'Load Notes',
+export const selectNote = createAction(
+  'Select Note',
+  props<{ newNoteId: string }>()
+);
+
+export const deselectNote = createAction('Deselect Note');
+
+export const deleteNote = createAction(
+  'Delete Note',
   props<{
-    newNotes: Note[];
+    noteId: string;
   }>()
 );
 
-export const selectNote = createAction(
-  'Select Note',
-  props<{ newNoteId: number }>()
+export const deleteNoteSuccess = createAction(
+  'Delete Note Success',
+  props<{
+    noteId: string;
+  }>()
 );
-
-//deselect note

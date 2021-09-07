@@ -9,6 +9,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UserService } from '../services/user.service';
 
 @NgModule({
   declarations: [LoginComponent, NewAccountComponent],
@@ -20,9 +22,11 @@ import { RouterModule } from '@angular/router';
     MatButtonModule,
     MatIconModule,
     FontAwesomeModule,
-    RouterModule 
+    RouterModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-
+  providers: [UserService],
   exports: [LoginComponent, NewAccountComponent],
 })
 export class StartScreenModule {}

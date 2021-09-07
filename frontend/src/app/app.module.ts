@@ -15,6 +15,9 @@ import { notesReducer } from './store/notes/notes.reducer';
 import { userReducer } from './store/user/user.reducer';
 import { NotesEffect } from './store/notes/notes.effects';
 import { HttpClientModule } from '@angular/common/http';
+import { UserService } from './services/user.service';
+import { NotesService } from './services/notes.service';
+import { UserEffect } from './store/user/user.effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -22,17 +25,17 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({notes: notesReducer,user:userReducer}),
-    StoreDevtoolsModule.instrument({maxAge:20}),
+    StoreModule.forRoot({ notes: notesReducer, user: userReducer }),
+    StoreDevtoolsModule.instrument({ maxAge: 20 }),
     // StoreModule.forRoot({}, {}), //nzm sta vi radite tu
     // StoreModule.forRoot(reducers, { metaReducers }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
-    EffectsModule.forRoot([NotesEffect]),
+    EffectsModule.forRoot([NotesEffect, UserEffect]),
     HomeModule,
     StartScreenModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [UserService, NotesService], //proba da l treba
   bootstrap: [AppComponent],
 })
 export class AppModule {}

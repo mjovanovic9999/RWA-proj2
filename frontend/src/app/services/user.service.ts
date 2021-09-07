@@ -3,46 +3,53 @@ import { Injectable } from '@angular/core';
 import { throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Note } from '../models/note';
 
 @Injectable({
   providedIn: 'root',
 })
-export class NotesService {
+export class UserService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllNotes() {
+  login(username: string, password: string) {
     return this.httpClient
-      .get<Note[]>(environment.URL + '/notes')
-      .pipe(catchError(errorHandler));
-  }
-
-  addNewNote(title: string, content: string) {///kako da vrati id
-    return this.httpClient
-      .post<{ title: string; content: string }>( //vrv ne treba
-        environment.URL + '/notes/new',
-        { title: title, content: content } //mozda options
-      )
-      .pipe(catchError(errorHandler));
-  }
-  //vrv mi ne treba getby id
-
-  updateNote(noteId: string, title: string, content: string) {
-    return this.httpClient
-      .patch<{ noteId: string; title: string; content: string }>(
-        environment.URL + '/notes' + noteId,
-        { title: title, content: content } //mozda options
+      .post<{ username: string; password: string }>(
+        //{ username: string; password: string }//provera da l treba
+        environment.URL + '/users/login',
+        { username: username, password: password } //mozda options
       )
       .pipe(catchError(errorHandler));
   }
 
-  deleteNote(noteId: string) {
+  register(username: string, password: string) {
     return this.httpClient
-      .delete(environment.URL + '/notes/' + noteId)
+      .post<{ username: string; password: string }>(
+        environment.URL + '/users/register',
+        { username: username, password: password } //mozda options
+      )
       .pipe(catchError(errorHandler));
   }
+
+  isLoggedIn() {
+    return this.httpClient
+      .get(environment.URL + '/user')
+      .pipe(catchError(errorHandler));
+  }
+
+  updateAccount(password: string) {
+    return this.httpClient
+      .patch<{ password: string }>(
+        environment.URL + '/users',
+        { password: password } //mozda options
+      )
+      .pipe(catchError(errorHandler));
+  }
+
+  /**  @Get('user')
+  async user(@Req() request: Request) {
+    await this.userService.getUsername(request);
+    return null;
+  } */
 }
-
 const errorHandler = (error: HttpErrorResponse) => {
   //bolje sam da ga napisem
   const errorMessage =

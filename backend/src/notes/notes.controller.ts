@@ -64,8 +64,8 @@ export class NotesController {
 
   @UseGuards(AuthGuard)
   @Delete(':id')
-  async removeNote(@Req() request: Request, @Param('id') prodId: string) {
-    await this.notesService.deleteNote(request, prodId);
+  async deleteNote(@Req() request: Request, @Param('id') noteId: string) {
+    await this.notesService.deleteNote(request, noteId);
     return null;
   }
 }

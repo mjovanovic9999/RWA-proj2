@@ -4,17 +4,18 @@
   </div>
   <mat-card-title> Login </mat-card-title>
   <mat-card-content>
-    <form>
+    <form >
       <!-- [formGroup]="form" (ngSubmit)="submit()" -->
       <mat-form-field appearance="fill">
         <mat-label>Username</mat-label>
-        <input type="text" matInput formControlName="username" />
+        <input type="text" matInput name="username" [(ngModel)]="username" />
       </mat-form-field>
 
       <mat-form-field appearance="fill" class="Poslednji">
         <mat-label>Password</mat-label>
-        <input type="password" matInput formControlName="password" />
+        <input type="password" matInput  name="password"  [(ngModel)]="password" /><!--  formControlName="password" -->
       </mat-form-field>
+
       <div class="NewAccount">
         <a routerLink="/newaccount" routerLinkActive="active">
           Don't have an account?

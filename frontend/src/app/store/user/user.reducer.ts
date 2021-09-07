@@ -1,23 +1,15 @@
 import { createEntityAdapter } from '@ngrx/entity';
-import { createReducer } from '@ngrx/store';
+import { createReducer, on } from '@ngrx/store';
 import { User } from 'src/app/models/user';
+import * as Actions from './user.actions';
 
-export interface UserState /* extends EntityState<Note>  nzm treba li*/ {
-  currentUserId: number;
+export interface UserLoginState {
+  isLoggedIn: boolean;
 }
 
-const adapter = createEntityAdapter<User>();
-
-const initialState: UserState = adapter.getInitialState({
-  currentUserId: -1,
-});
-
 export const userReducer = createReducer(
-  initialState
-  //,
-  //  on(Actions.loadNotes,(state)=>
-  //  {
-  //       return {...state};//gde je tu effect
-  //  }
-  //  )
+  false,
+  on(Actions.loginSuccess, () => true),
+  on(Actions.registerSuccess, () => true),
+  on(Actions.logout, () => false)
 );

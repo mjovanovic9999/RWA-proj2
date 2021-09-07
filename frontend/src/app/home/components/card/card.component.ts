@@ -1,4 +1,9 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Note } from '../../../models/note';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
@@ -7,11 +12,11 @@ import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss'],
-  changeDetection:ChangeDetectionStrategy.OnPush 
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CardComponent implements OnInit {
   @Input() note: Note = {
-    id: -1,
+    id: '',
     title: 'Error',
     content: 'Error',
   };
@@ -22,7 +27,9 @@ export class CardComponent implements OnInit {
 
   openNoteDialog() {
     let dialog = this.accountDialog.open(NoteDialogComponent, {
-      data: { title: 'naslov',content:`dfdfdcdwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww < wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+      data: {
+        title: 'naslov',
+        content: `dfdfdcdwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww < wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
       w
       w
@@ -56,9 +63,10 @@ export class CardComponent implements OnInit {
       w
   
       wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwdnfuifehg78owyhr7iouyghykjzosergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk` },
+      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwdnfuifehg78owyhr7iouyghykjzosergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk`,
+      },
       width: '900px',
-      height:"700px",
+      height: '700px',
     });
     dialog.afterClosed().subscribe((result) => {
       console.log(result);

@@ -23,7 +23,7 @@ export class UsersController {
     @Body('password') password: string,
     @Res({ passthrough: true }) response: Response,
   ) {
-    this.userService.login(response, username, password);
+    await this.userService.login(response, username, password);
     return {
       message: 'success',
     };

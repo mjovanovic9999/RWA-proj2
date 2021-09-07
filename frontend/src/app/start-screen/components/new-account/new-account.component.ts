@@ -9,6 +9,9 @@ import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 export class NewAccountComponent implements OnInit {
   faUserCircle = faUserCircle;
 
+  username: string = '';
+  password: string = '';
+
   constructor() {}
 
   ngOnInit(): void {}
