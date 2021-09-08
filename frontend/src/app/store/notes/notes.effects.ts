@@ -66,7 +66,7 @@ export class NotesEffect {
       mergeMap((note) =>
         this.notesService.deleteNote(note.noteId).pipe(
           map((deletedNoteId) =>
-            NotesActions.deleteNoteSuccess({ noteId: deletedNoteId })
+            NotesActions.deleteNoteSuccess({ noteId: deletedNoteId.noteId })
           ),
           catchError(() => of({ type: 'delete error' }))
         )

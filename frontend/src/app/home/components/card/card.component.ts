@@ -1,10 +1,13 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  EventEmitter,
   Input,
   OnInit,
+  Output,
 } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { Subscription } from 'rxjs';
 import { Note } from '../../../models/note';
 import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 
@@ -25,46 +28,18 @@ export class CardComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  dialog: MatDialogRef<NoteDialogComponent, any> | null = null;
+
   openNoteDialog() {
-    let dialog = this.noteDialog.open(NoteDialogComponent, {
+    this.dialog = this.noteDialog.open(NoteDialogComponent, {
       data: {
-        title: 'naslov',
-        content: `dfdfdcdw
-      
-  ergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk`,
+        noteId: this.note.noteId,
+        title: this.note.title,
+        content: this.note.content,
         delete: true,
       },
       width: '900px',
       height: '700px',
-    });
-    //select!!!!!!!!!!
-
-    const subscriptionSave = dialog.componentInstance.onSave.subscribe(
-      (data: { noteID: string; title: string; content: string }) => {
-        //update deselect
-        dialog.close();
-      }
-    );
-
-    const subscriptionCancel = dialog.componentInstance.onCancel.subscribe(
-      () => {
-        //deselect
-        dialog.close();
-      }
-    );
-
-    const subscriptionDelete = dialog.componentInstance.onDelete.subscribe(
-      (noteId) => {
-        alert('deleted');
-        //desecelt+//delete
-        dialog.close();
-      }
-    );
-
-    dialog.afterClosed().subscribe((result) => {
-      subscriptionSave.unsubscribe();
-      subscriptionCancel.unsubscribe();
-      subscriptionDelete.unsubscribe();
     });
   }
 }

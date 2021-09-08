@@ -1,5 +1,16 @@
-import { Component, EventEmitter, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
+import {
+  MatDialog,
+  MatDialogRef,
+  MAT_DIALOG_DATA,
+} from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import {
+  addNewNote,
+  deleteNote,
+  updateNote,
+} from 'src/app/store/notes/notes.actions';
 import { Note } from '../../../models/note';
 
 interface NoteDialog extends Note {
@@ -11,27 +22,39 @@ interface NoteDialog extends Note {
   templateUrl: './note-dialog.component.html',
   styleUrls: ['./note-dialog.component.scss'],
 })
-export class NoteDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: NoteDialog) {}
-
-  onSave = new EventEmitter();
-  onCancel = new EventEmitter();
-  onDelete = new EventEmitter();
+export class NoteDialogComponent {
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: NoteDialog,
+    private dialogRef: MatDialogRef<NoteDialogComponent>,
+    private store: Store<AppState>
+  ) {}
 
   onSaveButtonClick() {
-    this.onSave.emit({
-      noteId: this.data.noteId,
-      title: this.data.title,
-      content: this.data.content,
-    });
+    console.log(this.data);
+    if (this.data.noteId)
+      this.store.dispatch(
+        updateNote({
+          noteId: this.data.noteId,
+          title: this.data.title,
+          content: this.data.content,
+        })
+      );
+    else {
+      this.store.dispatch(
+        addNewNote({
+          title: this.data.title,
+          content: this.data.content,
+        })
+      );
+    }
+    this.dialogRef.close();
   }
 
   onCancelButtonClick() {
-    this.onCancel.emit();
+    this.dialogRef.close();
   }
   onDeleteButtonClick() {
-    this.onDelete.emit(this.data.noteId);
+    this.store.dispatch(deleteNote({ noteId: this.data.noteId }));
+    this.dialogRef.close();
   }
-
-  ngOnInit(): void {}
 }

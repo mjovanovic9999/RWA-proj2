@@ -18,7 +18,12 @@ export class NotesService {
       title: title,
       content: content,
     });
-    return await newNote.save();//da l vraca real note koji mi treba????
+    await newNote.save();//da l vraca real note koji mi treba????
+    return {
+      noteId: newNote._id,
+      title: title,
+      content: content,
+    }
   }
 
   async getAllUserNotes(request: Request): Promise<Note[]> {
@@ -45,7 +50,12 @@ export class NotesService {
 
     if (content) newNote.content = content;
 
-    return await newNote.save();
+     await newNote.save();
+     return {
+      noteId: newNote._id,
+      title: newNote.title,
+      content: newNote.content,
+    }
   }
 
   async deleteNote(request: Request, noteId: string) {

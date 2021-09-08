@@ -1,8 +1,14 @@
 <mat-grid-list cols="3" rowHeight="300px">
-    <mat-grid-tile *ngFor="let itemNote of notesList | async">
-        <app-card [note]="itemNote"></app-card>
-    </mat-grid-tile>
-    <!-- <mat-grid-tile>
-        <fa-icon [icon]="faPlusSquare" size="lg" (click)="addNewNote()"></fa-icon>
-    </mat-grid-tile> -->
+  <mat-grid-tile *ngFor="let itemNote of notesList | async">
+    <app-card
+      [note]="itemNote"
+    >
+    </app-card>
+  </mat-grid-tile>
+  <mat-grid-tile>
+    <fa-icon [icon]="faPlusSquare" size="3x" (click)="addNewNote()"></fa-icon>
+  </mat-grid-tile>
 </mat-grid-list>
+<!-- (onSelect)="onSelectHandler($event)"
+(onDelete)="onDeleteHandler($event)"
+(onUpdate)="onUpdateHandler($event)" -->

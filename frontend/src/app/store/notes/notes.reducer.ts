@@ -25,34 +25,22 @@ export const notesReducer = createReducer(
     ...state,
     selectedNoteId: '',
   })),
-  on(
-    Actions.loadNotesSuccess,
-    (
-      state,
-      { notes } //da l je ok?????
-    ) =>
-      adapter.setAll(
-        notes.map((note) => ({
-          noteId: note.noteId,
-          title: note.title,
-          content: note.content,
-        })),
-        state
-      ) // (state, {movies}) => adapter.setAll(movies, state)
-
-    /**({
-          noteId: note.noteId,
-          title: note.title,
-          content: note.content,
-        }) */
+  on(Actions.loadNotesSuccess, (state, { notes }) =>
+    adapter.setAll(
+      notes.map((note) => ({
+        noteId: note.noteId,
+        title: note.title,
+        content: note.content,
+      })),
+      state
+    )
   ),
-
   on(Actions.updateNotesSuccess, (state, { noteId, title, content }) => {
     ///
     //const note: Note = { noteId: noteId, title: title, content: content };
     const pom: Update<Note> = {
       id: noteId,
-      changes: (state.entities[noteId] = {
+      changes: ({
         noteId: noteId,
         title: title,
         content: content,
@@ -64,8 +52,7 @@ export const notesReducer = createReducer(
   on(Actions.addNewNoteSuccess, (state, { noteId, title, content }) =>
     adapter.addOne({ noteId: noteId, title: title, content: content }, state)
   ),
-  on(Actions.deleteNoteSuccess, (state) => ({
-    ///lose
-    ...state,
-  }))
+  on(Actions.deleteNoteSuccess, (state, { noteId }) =>
+    adapter.removeOne(noteId, state)
+  )
 );

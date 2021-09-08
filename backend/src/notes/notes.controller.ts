@@ -59,6 +59,6 @@ export class NotesController {
   @Delete(':id')
   async deleteNote(@Req() request: Request, @Param('id') noteId: string) {
     await this.notesService.deleteNote(request, noteId);
-    return noteId;
+    return { noteId: noteId };
   }
 }

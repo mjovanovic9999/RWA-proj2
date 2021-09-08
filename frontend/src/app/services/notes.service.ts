@@ -32,7 +32,7 @@ export class NotesService {
   updateNote(noteId: string, title: string, content: string) {
     return this.httpClient
       .patch<{ noteId: string; title: string; content: string }>(
-        environment.URL + '/notes' + noteId,
+        environment.URL + '/notes/' + noteId,
         { title: title, content: content }, //mozda options
         { withCredentials: true }
       )
@@ -41,7 +41,7 @@ export class NotesService {
 
   deleteNote(noteId: string) {
     return this.httpClient
-      .delete<string>(environment.URL + '/notes/' + noteId, {
+      .delete<{ noteId: string }>(environment.URL + '/notes/' + noteId, {
         withCredentials: true,
       })
       .pipe(catchError(errorHandler));
