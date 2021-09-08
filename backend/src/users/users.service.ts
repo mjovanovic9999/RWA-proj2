@@ -43,7 +43,7 @@ export class UsersService {
 
     const jwt = await this.jwtService.signAsync({ username: user.username });
 
-    response.cookie('jwt', jwt, { httpOnly: true }); //tako li se zavrsava?????
+    response.cookie('jwt', jwt, { httpOnly: true, secure: false ,sameSite: 'none' }); //tako li se zavrsava?????
   }
 
   async findUser(username: string): Promise<User> {

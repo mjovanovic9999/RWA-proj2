@@ -3,7 +3,6 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { of } from 'rxjs';
 import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 import { UserService } from 'src/app/services/user.service';
-import { AppState } from '../app.state';
 import { loadNotes } from '../notes/notes.actions';
 import * as UserActions from './user.actions';
 
@@ -16,7 +15,7 @@ export class UserEffect {
       ofType(UserActions.login),
       mergeMap((credentials) =>
         this.userService.login(credentials.username, credentials.password).pipe(
-          map(() => UserActions.loginSuccess()),
+          mergeMap(() => [UserActions.loginSuccess(), loadNotes()]),
           catchError(() => of({ type: 'login error' }))
         )
       )
@@ -44,6 +43,18 @@ export class UserEffect {
         this.userService.updateAccount(credentials.password).pipe(
           map(() => UserActions.updateAccountSuccess()),
           catchError(() => of({ type: 'update error' }))
+        )
+      )
+    );
+  });
+
+  isLoggedInEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.isLoggedIn),
+      mergeMap(() =>
+        this.userService.isLoggedIn().pipe(
+          mergeMap(() => [UserActions.loginSuccess(), loadNotes()]),
+          catchError(() => of({ type: 'user isnt logged in' }))
         )
       )
     );

@@ -15,7 +15,8 @@ export class UserService {
       .post<{ username: string; password: string }>(
         //{ username: string; password: string }//provera da l treba
         environment.URL + '/users/login',
-        { username: username, password: password } //mozda options
+        { username: username, password: password }, //mozda options
+        { withCredentials: true, observe: 'response' }
       )
       .pipe(catchError(errorHandler));
   }
@@ -24,14 +25,18 @@ export class UserService {
     return this.httpClient
       .post<{ username: string; password: string }>(
         environment.URL + '/users/register',
-        { username: username, password: password } //mozda options
+        { username: username, password: password }, //mozda options
+        { withCredentials: true, observe: 'response' }
       )
       .pipe(catchError(errorHandler));
   }
 
   isLoggedIn() {
     return this.httpClient
-      .get(environment.URL + '/user')
+      .get(environment.URL + '/users', {
+        withCredentials: true,
+        observe: 'response',
+      }) //mozda observe
       .pipe(catchError(errorHandler));
   }
 
@@ -39,7 +44,8 @@ export class UserService {
     return this.httpClient
       .patch<{ password: string }>(
         environment.URL + '/users',
-        { password: password } //mozda options
+        { password: password }, //mozda options
+        { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
   }

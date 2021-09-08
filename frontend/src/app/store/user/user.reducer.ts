@@ -7,9 +7,13 @@ export interface UserLoginState {
   isLoggedIn: boolean;
 }
 
+export const initialState: UserLoginState = {
+  isLoggedIn: false,
+};
+
 export const userReducer = createReducer(
-  false,
-  on(Actions.loginSuccess, () => true),
-  on(Actions.registerSuccess, () => true),
-  on(Actions.logout, () => false)
+  initialState,
+  on(Actions.loginSuccess, (state) => ({ ...state, isLoggedIn: true })),
+  on(Actions.registerSuccess, (state) => ({ ...state, isLoggedIn: true })),
+  on(Actions.logout, (state) => ({ ...state, isLoggedIn: false }))
 );

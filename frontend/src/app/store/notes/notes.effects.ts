@@ -15,7 +15,7 @@ export class NotesEffect {
       ofType(NotesActions.loadNotes),
       mergeMap(() =>
         this.notesService.getAllNotes().pipe(
-          map((notes) => NotesActions.loadNotessSuccess({ notes: notes })),
+          map((notes) => NotesActions.loadNotesSuccess({ notes: notes })),
           catchError(() => of({ type: 'load error' }))
         )
       )

@@ -13,7 +13,7 @@ export class NotesService {
 
   getAllNotes() {
     return this.httpClient
-      .get<Note[]>(environment.URL + '/notes') //da l je real Note[]
+      .get<Note[]>(environment.URL + '/notes', { withCredentials: true }) //da l je real Note[]
       .pipe(catchError(errorHandler));
   }
 
@@ -22,7 +22,8 @@ export class NotesService {
     return this.httpClient
       .post<{ noteId: string; title: string; content: string }>(
         environment.URL + '/notes/new',
-        { title: title, content: content } //mozda options
+        { title: title, content: content }, //mozda options
+        { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
   }
@@ -32,14 +33,17 @@ export class NotesService {
     return this.httpClient
       .patch<{ noteId: string; title: string; content: string }>(
         environment.URL + '/notes' + noteId,
-        { title: title, content: content } //mozda options
+        { title: title, content: content }, //mozda options
+        { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
   }
 
   deleteNote(noteId: string) {
     return this.httpClient
-      .delete<string>(environment.URL + '/notes/' + noteId)
+      .delete<string>(environment.URL + '/notes/' + noteId, {
+        withCredentials: true,
+      })
       .pipe(catchError(errorHandler));
   }
 }

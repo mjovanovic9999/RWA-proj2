@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/app.state';
-import { login } from 'src/app/store/user/user.actions';
+import { isLoggedIn, login } from 'src/app/store/user/user.actions';
+import { selectIsUserLoggedIn } from 'src/app/store/user/user.selectors';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,9 +16,16 @@ export class LoginComponent implements OnInit {
   username: string = '';
   password: string = '';
 
-  constructor(private store: Store<AppState>) {}
+  constructor(private store: Store<AppState>, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.store.dispatch(isLoggedIn());
+
+    this.store.select(selectIsUserLoggedIn).subscribe((isLoggedIn: boolean) => {
+      isLoggedIn ? this.router.navigateByUrl('/home') : null; //mozda umesto null na login
+      console.log(isLoggedIn);
+    });
+  }
 
   Login() {
     this.store.dispatch(
@@ -24,5 +33,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  NewAccount() {}
+  NewAccount() {
+    this.router.navigateByUrl('/newaccount');
+  }
 }

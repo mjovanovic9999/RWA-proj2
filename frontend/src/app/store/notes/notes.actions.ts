@@ -39,7 +39,7 @@ export const addNewNoteSuccess = createAction(
 
 export const loadNotes = createAction('Load Notes');
 
-export const loadNotessSuccess = createAction(
+export const loadNotesSuccess = createAction(
   'Load Notes Success',
   props<{ notes: Note[] }>()
 );

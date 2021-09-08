@@ -11,6 +11,17 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
+import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import { initialState, userReducer } from '../store/user/user.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { UserEffect } from '../store/user/user.effects';
+import { NotesEffect } from '../store/notes/notes.effects';
+import { notesReducer } from '../store/notes/notes.reducer';
+
+export const reducers: ActionReducerMap<any> = {
+  notes: notesReducer,
+  user: userReducer,
+};
 
 @NgModule({
   declarations: [LoginComponent, NewAccountComponent],

@@ -7,7 +7,9 @@ export interface NotesState extends EntityState<Note> {
   selectedNoteId: string;
 }
 
-const adapter = createEntityAdapter<Note>();
+const adapter = createEntityAdapter<Note>({
+  selectId: (note: Note) => note.noteId,
+});
 
 const initialState: NotesState = adapter.getInitialState({
   selectedNoteId: '',
@@ -15,7 +17,6 @@ const initialState: NotesState = adapter.getInitialState({
 
 export const notesReducer = createReducer(
   initialState,
-
   on(Actions.selectNote, (state, { newNoteId }) => ({
     ...state,
     selectedNoteId: newNoteId,
@@ -25,17 +26,32 @@ export const notesReducer = createReducer(
     selectedNoteId: '',
   })),
   on(
-    Actions.loadNotessSuccess,
+    Actions.loadNotesSuccess,
     (
       state,
       { notes } //da l je ok?????
-    ) => adapter.setAll(notes, state)
+    ) =>
+      adapter.setAll(
+        notes.map((note) => ({
+          noteId: note.noteId,
+          title: note.title,
+          content: note.content,
+        })),
+        state
+      ) // (state, {movies}) => adapter.setAll(movies, state)
+
+    /**({
+          noteId: note.noteId,
+          title: note.title,
+          content: note.content,
+        }) */
   ),
+
   on(Actions.updateNotesSuccess, (state, { noteId, title, content }) => {
     ///
     //const note: Note = { noteId: noteId, title: title, content: content };
     const pom: Update<Note> = {
-      id: '',
+      id: noteId,
       changes: (state.entities[noteId] = {
         noteId: noteId,
         title: title,

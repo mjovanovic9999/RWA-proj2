@@ -29,7 +29,7 @@ export class UsersController {
     };
   }
 
-  @Get('user')
+  @Get()
   async user(@Req() request: Request) {
     await this.userService.getUsername(request);
     return {

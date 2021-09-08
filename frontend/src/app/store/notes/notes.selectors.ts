@@ -13,7 +13,11 @@ export const selectAllNotes = createSelector(
   (state: NotesState) =>
     Object.values(state.entities)
       .filter((note) => note != null)
-      .map((note) => <Note>note) //mozda moze bolje
+      .map((note) => ({
+        noteId: note!.noteId,
+        title: note!.title,
+        content: note!.content,
+      })) //mozda moze bolje<Note>note
 );
 
 export const selectSelectedNoteId = createSelector(

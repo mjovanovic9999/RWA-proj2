@@ -10,7 +10,6 @@ import { environment } from '../environments/environment';
 import { EffectsModule } from '@ngrx/effects';
 import { HomeModule } from './home/home.module';
 import { StartScreenModule } from './start-screen/start-screen.module';
-import { reducers, metaReducers } from './store';
 import { notesReducer } from './store/notes/notes.reducer';
 import { userReducer } from './store/user/user.reducer';
 import { NotesEffect } from './store/notes/notes.effects';
@@ -25,15 +24,17 @@ import { UserEffect } from './store/user/user.effects';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    StoreModule.forRoot({ notes: notesReducer, user: userReducer }),
-    StoreDevtoolsModule.instrument({ maxAge: 20 }),
-    // StoreModule.forRoot({}, {}), //nzm sta vi radite tu
-    // StoreModule.forRoot(reducers, { metaReducers }),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    StoreModule.forRoot({ notes: notesReducer, userLogin: userReducer }),
     EffectsModule.forRoot([NotesEffect, UserEffect]),
+
+    StoreDevtoolsModule.instrument({
+      maxAge: 20,
+      logOnly: environment.production,
+    }),
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    HttpClientModule,
     HomeModule,
     StartScreenModule,
-    HttpClientModule,
   ],
   providers: [UserService, NotesService], //proba da l treba
   bootstrap: [AppComponent],

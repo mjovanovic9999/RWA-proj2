@@ -21,6 +21,10 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { NoteDialogComponent } from './components/note-dialog/note-dialog.component';
 import { RouterModule } from '@angular/router';
+import { ActionReducerMap, StoreModule } from '@ngrx/store';
+import { notesReducer } from '../store/notes/notes.reducer';
+import { userReducer } from '../store/user/user.reducer';
+
 
 @NgModule({
   declarations: [
@@ -42,13 +46,13 @@ import { RouterModule } from '@angular/router';
     MatSelectModule,
     BrowserAnimationsModule, //visak
     BrowserModule, //isto
-    FormsModule, //issto
+    FormsModule,
     MatDialogModule,
     MatDividerModule,
     MatGridListModule,
     MatCardModule,
-    RouterModule 
+    RouterModule,
   ],
-  exports: [ HomeComponent],
+  exports: [HomeComponent],
 })
 export class HomeModule {}

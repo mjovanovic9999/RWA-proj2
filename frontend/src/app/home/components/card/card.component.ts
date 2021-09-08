@@ -21,55 +21,50 @@ export class CardComponent implements OnInit {
     content: 'Error',
   };
 
-  constructor(public accountDialog: MatDialog) {}
+  constructor(public noteDialog: MatDialog) {}
 
   ngOnInit(): void {}
 
   openNoteDialog() {
-    let dialog = this.accountDialog.open(NoteDialogComponent, {
+    let dialog = this.noteDialog.open(NoteDialogComponent, {
       data: {
         title: 'naslov',
-        content: `dfdfdcdwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww wwwwwwwwwwwwwwwwwwwwwwwwwwwwwww < wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-      w
-      w
-      w
-        
-  
-      w
-      w
-      w
-      w
-      w
-      w
-      w
-      w
-  
-      w
-      w
-      w
-      w
-  
-      w
-      ww
-      w
-      w
-      w
-      w
-      w
-      w
-      w
-      w
-      w
-  
-      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
-      wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwdnfuifehg78owyhr7iouyghykjzosergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk`,
+        content: `dfdfdcdw
+      
+  ergfoi7h7ahdg8io9vjhadfukilbvhauifgha;uidrfbvhauidrhgpiuaerdrsghk`,
+        delete: true,
       },
       width: '900px',
       height: '700px',
     });
+    //select!!!!!!!!!!
+
+    const subscriptionSave = dialog.componentInstance.onSave.subscribe(
+      (data: { noteID: string; title: string; content: string }) => {
+        //update deselect
+        dialog.close();
+      }
+    );
+
+    const subscriptionCancel = dialog.componentInstance.onCancel.subscribe(
+      () => {
+        //deselect
+        dialog.close();
+      }
+    );
+
+    const subscriptionDelete = dialog.componentInstance.onDelete.subscribe(
+      (noteId) => {
+        alert('deleted');
+        //desecelt+//delete
+        dialog.close();
+      }
+    );
+
     dialog.afterClosed().subscribe((result) => {
-      console.log(result);
+      subscriptionSave.unsubscribe();
+      subscriptionCancel.unsubscribe();
+      subscriptionDelete.unsubscribe();
     });
   }
 }
