@@ -12,14 +12,13 @@ export class NotesService {
     private jwtService: JwtService,
   ) {}
 
-  async createNote(request: Request, title: string, content: string) {
+  async addNewNote(request: Request, title: string, content: string) {
     const newNote = new this.noteModel({
       username: await this.getUsernameFromCookie(request),
       title: title,
       content: content,
     });
-    const result = await newNote.save();
-    return result.id;
+    return await newNote.save();//da l vraca real note koji mi treba????
   }
 
   async getAllUserNotes(request: Request): Promise<Note[]> {
@@ -30,8 +29,7 @@ export class NotesService {
   }
 
   async getSingleNoteById(request: Request, noteId: string) {
-    const note = await this.MapToNote(await this.findNote(request, noteId));
-    console.log(note);
+    const note = this.MapToNote(await this.findNote(request, noteId));
     return note;
   }
 
@@ -47,19 +45,19 @@ export class NotesService {
 
     if (content) newNote.content = content;
 
-    newNote.save();
-    return newNote;
+    return await newNote.save();
   }
 
   async deleteNote(request: Request, noteId: string) {
     const noteForDelete = await this.findNote(request, noteId);
     await noteForDelete.deleteOne();
+    return noteId;
   }
 
-  private async findNote(request: Request, note_id: string): Promise<Note> {
+  private async findNote(request: Request, noteId: string): Promise<Note> {
     let note;
     try {
-      note = await this.noteModel.findById(note_id).exec();
+      note = await this.noteModel.findById(noteId).exec();
     } catch (error) {
       throw new NotFoundException('Could not find note.');
     }
@@ -78,7 +76,7 @@ export class NotesService {
 
   private MapToNote(oldNote: Note): any {
     return {
-      note_id: oldNote.id,
+      noteId: oldNote.id,
       username: oldNote.username,
       title: oldNote.title,
       content: oldNote.content,

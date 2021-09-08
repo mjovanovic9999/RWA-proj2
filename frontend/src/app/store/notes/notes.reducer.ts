@@ -1,4 +1,4 @@
-import { createEntityAdapter, EntityState } from '@ngrx/entity';
+import { createEntityAdapter, EntityState, Update } from '@ngrx/entity';
 import { createReducer, on } from '@ngrx/store';
 import { Note } from '..//../models/note';
 import * as Actions from './notes.actions';
@@ -31,32 +31,25 @@ export const notesReducer = createReducer(
       { notes } //da l je ok?????
     ) => adapter.setAll(notes, state)
   ),
-  on(Actions.updateNotesSuccess, (state) => ({
-    ///lose
-    ...state,
-  })),
-  on(Actions.addNewNoteSuccess, (state, { noteId, title, content }) => ({
-    ///lose
-    ...state,
-  })),
+  on(Actions.updateNotesSuccess, (state, { noteId, title, content }) => {
+    ///
+    //const note: Note = { noteId: noteId, title: title, content: content };
+    const pom: Update<Note> = {
+      id: '',
+      changes: (state.entities[noteId] = {
+        noteId: noteId,
+        title: title,
+        content: content,
+      }),
+    };
+    console.log('bate uopste nmg pojma radi li ovo');
+    return adapter.updateOne(pom, state);
+  }),
+  on(Actions.addNewNoteSuccess, (state, { noteId, title, content }) =>
+    adapter.addOne({ noteId: noteId, title: title, content: content }, state)
+  ),
   on(Actions.deleteNoteSuccess, (state) => ({
     ///lose
     ...state,
   }))
 );
-//add
-//addNewNoteSuccess
-
-// on(Actions.changeRating, (state, {movieId, rating} ) => {
-//     const targetMovie = state.entities[movieId];
-//     if (targetMovie) {
-//         return adapter.setOne({...targetMovie, score: rating}, state);
-//     } else {
-//         return state;
-//     }
-// }),
-
-// on(Actions.selectMovie, (state, {movieId}) => ({
-//     ...state,
-//     selectedMovieId: movieId
-// }))

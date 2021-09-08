@@ -14,7 +14,7 @@ export class UsersController {
   ) {
     const user = await this.userService.registerUser(username, password);
 
-    return user.username;
+    return user.username; //da l kao i login da vraca success
   }
 
   @Post('login')
@@ -32,12 +32,14 @@ export class UsersController {
   @Get('user')
   async user(@Req() request: Request) {
     await this.userService.getUsername(request);
-    return null;
+    return {
+      message: 'success',
+    };
   }
 
   @Get('logout')
   async logout(@Res({ passthrough: true }) response: Response) {
-    response.clearCookie('jwt');
+    await response.clearCookie('jwt');
 
     return {
       message: 'success',
@@ -57,6 +59,8 @@ export class UsersController {
       newPassword,
       newPasswordRepeat,
     );
-    return null;
+    return {
+      message: 'success',
+    };
   }
 }

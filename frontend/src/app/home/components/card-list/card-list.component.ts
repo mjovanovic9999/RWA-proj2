@@ -27,7 +27,7 @@ export class CardListComponent implements OnInit {
   // }
 
   clickNote(note:Note){
-    this.store.dispatch(selectNote({newNoteId:note.id}))
+    this.store.dispatch(selectNote({newNoteId:note.noteId}))
   }
   
 }

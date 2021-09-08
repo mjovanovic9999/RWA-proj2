@@ -27,11 +27,10 @@ export class UsersService {
 
     const newUser = new this.userModel({
       username: username,
-      hashedPassword: password,
+      hashedPassword: hashedPassword,
     });
 
-    const result = await newUser.save();
-    return result;
+    return await newUser.save();
   }
 
   async login(response: Response, username: string, password: string) {
@@ -44,11 +43,11 @@ export class UsersService {
 
     const jwt = await this.jwtService.signAsync({ username: user.username });
 
-    response.cookie('jwt', jwt, { httpOnly: true });
+    response.cookie('jwt', jwt, { httpOnly: true }); //tako li se zavrsava?????
   }
 
   async findUser(username: string): Promise<User> {
-    return this.userModel.findOne({ username: username });
+    return await this.userModel.findOne({ username: username }).exec();
   }
 
   async getUsername(request: Request) {
@@ -80,6 +79,6 @@ export class UsersService {
     }
     ///
     user.password = newPassword;
-    user.save();
+    await user.save();
   }
 }

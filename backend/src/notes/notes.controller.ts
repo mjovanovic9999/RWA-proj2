@@ -9,7 +9,7 @@ import {
   Req,
   UseGuards,
 } from '@nestjs/common';
-import {  Request } from 'express';
+import { Request } from 'express';
 import { AuthGuard } from 'src/notes/auth.guard';
 
 import { NotesService } from './notes.service';
@@ -25,14 +25,7 @@ export class NotesController {
     @Body('title') noteTitle: string,
     @Body('content') noteContent: string,
   ) {
-    const generatedId = await this.notesService.createNote(
-      request,
-      noteTitle,
-      noteContent,
-    );
-    return {
-      message: 'success',
-    };
+    return await this.notesService.addNewNote(request, noteTitle, noteContent);
   }
 
   @UseGuards(AuthGuard)
@@ -48,7 +41,7 @@ export class NotesController {
     @Req() request: Request,
     @Param('id') noteId: string,
   ) {
-    return this.notesService.getSingleNoteById(request, noteId);
+    return await this.notesService.getSingleNoteById(request, noteId);
   }
 
   @UseGuards(AuthGuard)
@@ -66,6 +59,6 @@ export class NotesController {
   @Delete(':id')
   async deleteNote(@Req() request: Request, @Param('id') noteId: string) {
     await this.notesService.deleteNote(request, noteId);
-    return null;
+    return noteId;
   }
 }

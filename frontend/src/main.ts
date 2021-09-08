@@ -8,5 +8,9 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
-  .catch(err => console.error(err));
+platformBrowserDynamic()
+  .bootstrapModule(AppModule)
+  .catch((err) => console.error(err));
+/// this.router.navigateByUrl('/user');
+//note reducer  nije gotov!
+//svuda ima komentari da se provere

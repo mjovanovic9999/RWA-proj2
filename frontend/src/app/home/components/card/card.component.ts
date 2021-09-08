@@ -16,7 +16,7 @@ import { NoteDialogComponent } from '../note-dialog/note-dialog.component';
 })
 export class CardComponent implements OnInit {
   @Input() note: Note = {
-    id: '',
+    noteId: '',
     title: 'Error',
     content: 'Error',
   };

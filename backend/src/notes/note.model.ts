@@ -6,8 +6,8 @@ export const NoteSchema = new Schema({
   content: { type: String, required: true },
 });
 
-export interface Note extends Document{
-  note_id: string;
+export interface Note extends Document {
+  noteId: string;
   username: string;
   title: string;
   content: string;

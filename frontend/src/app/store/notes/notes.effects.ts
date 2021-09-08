@@ -15,7 +15,7 @@ export class NotesEffect {
       ofType(NotesActions.loadNotes),
       mergeMap(() =>
         this.notesService.getAllNotes().pipe(
-          map((notes) => NotesActions.loadNotessSuccess({ notes })),
+          map((notes) => NotesActions.loadNotessSuccess({ notes: notes })),
           catchError(() => of({ type: 'load error' }))
         )
       )
@@ -29,11 +29,11 @@ export class NotesEffect {
         this.notesService
           .updateNote(note.noteId, note.title, note.content)
           .pipe(
-            map(() =>
+            map((updatedNote) =>
               NotesActions.updateNotesSuccess({
-                noteId: '4', ///note.id ???????????????
-                title: note.title,
-                content: note.content,
+                noteId: updatedNote.noteId,
+                title: updatedNote.title,
+                content: updatedNote.content,
               })
             ),
             catchError(() => of({ type: 'update error' }))
@@ -47,11 +47,11 @@ export class NotesEffect {
       ofType(NotesActions.addNewNote),
       mergeMap((note) =>
         this.notesService.addNewNote(note.title, note.content).pipe(
-          map(() =>
+          map((newNote) =>
             NotesActions.addNewNoteSuccess({
-              noteId: '4', ///note.id ???????????????
-              title: note.title,
-              content: note.content,
+              noteId: newNote.noteId,
+              title: newNote.title,
+              content: newNote.content,
             })
           ),
           catchError(() => of({ type: 'add error' }))
@@ -65,7 +65,9 @@ export class NotesEffect {
       ofType(NotesActions.deleteNote),
       mergeMap((note) =>
         this.notesService.deleteNote(note.noteId).pipe(
-          map(() => NotesActions.deleteNoteSuccess({ noteId: note.noteId })),
+          map((deletedNoteId) =>
+            NotesActions.deleteNoteSuccess({ noteId: deletedNoteId })
+          ),
           catchError(() => of({ type: 'delete error' }))
         )
       )

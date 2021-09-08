@@ -13,13 +13,14 @@ export class NotesService {
 
   getAllNotes() {
     return this.httpClient
-      .get<Note[]>(environment.URL + '/notes')
+      .get<Note[]>(environment.URL + '/notes') //da l je real Note[]
       .pipe(catchError(errorHandler));
   }
 
-  addNewNote(title: string, content: string) {///kako da vrati id
+  addNewNote(title: string, content: string) {
+    ///kako da vrati id
     return this.httpClient
-      .post<{ title: string; content: string }>( //vrv ne treba
+      .post<{ noteId: string; title: string; content: string }>(
         environment.URL + '/notes/new',
         { title: title, content: content } //mozda options
       )
@@ -38,7 +39,7 @@ export class NotesService {
 
   deleteNote(noteId: string) {
     return this.httpClient
-      .delete(environment.URL + '/notes/' + noteId)
+      .delete<string>(environment.URL + '/notes/' + noteId)
       .pipe(catchError(errorHandler));
   }
 }
