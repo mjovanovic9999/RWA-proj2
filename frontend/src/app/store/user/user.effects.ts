@@ -29,7 +29,7 @@ export class UserEffect {
         this.userService
           .register(credentials.username, credentials.password)
           .pipe(
-            map(() => UserActions.registerSuccess()),
+            mergeMap(() => [UserActions.registerSuccess(), loadNotes()]),
             catchError(() => of({ type: 'register error' }))
           )
       )
@@ -40,10 +40,16 @@ export class UserEffect {
     return this.actions$.pipe(
       ofType(UserActions.updateAccount),
       mergeMap((credentials) =>
-        this.userService.updateAccount(credentials.password).pipe(
-          map(() => UserActions.updateAccountSuccess()),
-          catchError(() => of({ type: 'update error' }))
-        )
+        this.userService
+          .updateAccount(
+            credentials.oldPassword,
+            credentials.newPassword,
+            credentials.newPasswordRepeat
+          )
+          .pipe(
+            map(() => UserActions.updateAccountSuccess()),
+            catchError(() => of({ type: 'update error' }))
+          )
       )
     );
   });
@@ -54,6 +60,18 @@ export class UserEffect {
       mergeMap(() =>
         this.userService.isLoggedIn().pipe(
           mergeMap(() => [UserActions.loginSuccess(), loadNotes()]),
+          catchError(() => of({ type: 'user isnt logged in' }))
+        )
+      )
+    );
+  });
+
+  logoutEffect$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(UserActions.logout),
+      mergeMap(() =>
+        this.userService.logout().pipe(
+          map(() => UserActions.logoutSuccess()),
           catchError(() => of({ type: 'user isnt logged in' }))
         )
       )

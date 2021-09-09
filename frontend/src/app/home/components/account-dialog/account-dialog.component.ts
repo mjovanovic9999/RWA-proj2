@@ -1,12 +1,25 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 @Component({
   selector: 'app-account-dialog',
   templateUrl: './account-dialog.component.html',
   styleUrls: ['./account-dialog.component.scss'],
 })
-export class AccountDialogComponent implements OnInit {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: { username: string }) {}
+export class AccountDialogComponent {
+  constructor(private dialogRef: MatDialogRef<AccountDialogComponent>) {}
 
-  ngOnInit(): void {}
+  oldPassword = '';
+  newPassword = '';
+  newPasswordRepeat = '';
+
+  onCancel() {
+    this.dialogRef.close();
+  }
+  onSave() {
+    this.dialogRef.close({
+      oldPassword: this.oldPassword,
+      newPassword: this.newPassword,
+      newPasswordRepeat: this.newPasswordRepeat,
+    });
+  }
 }

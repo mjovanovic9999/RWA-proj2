@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.store.select(selectIsUserLoggedIn).subscribe(
       (isLoggedIn: boolean) =>
-        isLoggedIn ? null : this.router.navigateByUrl('/') //mozda umesto null na login
+        isLoggedIn ? null : this.router.navigateByUrl('/')
     );
   }
 }

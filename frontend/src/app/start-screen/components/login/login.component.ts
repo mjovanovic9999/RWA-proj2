@@ -22,8 +22,7 @@ export class LoginComponent implements OnInit {
     this.store.dispatch(isLoggedIn());
 
     this.store.select(selectIsUserLoggedIn).subscribe((isLoggedIn: boolean) => {
-      isLoggedIn ? this.router.navigateByUrl('/home') : null; //mozda umesto null na login
-      console.log(isLoggedIn);
+      isLoggedIn ? this.router.navigateByUrl('/home') : null;
     });
   }
 

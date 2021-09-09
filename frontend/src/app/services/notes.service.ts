@@ -13,27 +13,25 @@ export class NotesService {
 
   getAllNotes() {
     return this.httpClient
-      .get<Note[]>(environment.URL + '/notes', { withCredentials: true }) //da l je real Note[]
+      .get<Note[]>(environment.URL + '/notes', { withCredentials: true })
       .pipe(catchError(errorHandler));
   }
 
   addNewNote(title: string, content: string) {
-    ///kako da vrati id
     return this.httpClient
       .post<{ noteId: string; title: string; content: string }>(
         environment.URL + '/notes/new',
-        { title: title, content: content }, //mozda options
+        { title: title, content: content },
         { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
   }
-  //vrv mi ne treba getby id
 
   updateNote(noteId: string, title: string, content: string) {
     return this.httpClient
       .patch<{ noteId: string; title: string; content: string }>(
         environment.URL + '/notes/' + noteId,
-        { title: title, content: content }, //mozda options
+        { title: title, content: content },
         { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
@@ -49,7 +47,6 @@ export class NotesService {
 }
 
 const errorHandler = (error: HttpErrorResponse) => {
-  //bolje sam da ga napisem
   const errorMessage =
     error.status === 0
       ? `Can't connect to API ${error.error}`

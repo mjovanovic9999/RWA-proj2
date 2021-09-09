@@ -13,9 +13,8 @@ export class UserService {
   login(username: string, password: string) {
     return this.httpClient
       .post<{ username: string; password: string }>(
-        //{ username: string; password: string }//provera da l treba
         environment.URL + '/users/login',
-        { username: username, password: password }, //mozda options
+        { username: username, password: password }, 
         { withCredentials: true, observe: 'response' }
       )
       .pipe(catchError(errorHandler));
@@ -25,7 +24,7 @@ export class UserService {
     return this.httpClient
       .post<{ username: string; password: string }>(
         environment.URL + '/users/register',
-        { username: username, password: password }, //mozda options
+        { username: username, password: password }, 
         { withCredentials: true, observe: 'response' }
       )
       .pipe(catchError(errorHandler));
@@ -40,24 +39,34 @@ export class UserService {
       .pipe(catchError(errorHandler));
   }
 
-  updateAccount(password: string) {
+  updateAccount(
+    oldPassword: string,
+    newPassword: string,
+    newPasswordRepeat: string
+  ) {
     return this.httpClient
       .patch<{ password: string }>(
         environment.URL + '/users',
-        { password: password }, //mozda options
+        {
+          oldpassword: oldPassword,
+          newpassword: newPassword,
+          newpasswordrepeat: newPasswordRepeat,
+        },
         { withCredentials: true }
       )
       .pipe(catchError(errorHandler));
   }
 
-  /**  @Get('user')
-  async user(@Req() request: Request) {
-    await this.userService.getUsername(request);
-    return null;
-  } */
+  logout() {
+    return this.httpClient
+      .get(environment.URL + '/users/logout', {
+        withCredentials: true,
+        observe: 'response',
+      }) 
+      .pipe(catchError(errorHandler));
+  }
 }
 const errorHandler = (error: HttpErrorResponse) => {
-  //bolje sam da ga napisem
   const errorMessage =
     error.status === 0
       ? `Can't connect to API ${error.error}`

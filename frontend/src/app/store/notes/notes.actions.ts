@@ -1,7 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Note } from '../../models/note';
-//add dugme dodati
-//dodati delete
+
 export const updateNote = createAction(
   'Update Note',
   props<{

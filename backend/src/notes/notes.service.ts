@@ -18,7 +18,7 @@ export class NotesService {
       title: title,
       content: content,
     });
-    await newNote.save();//da l vraca real note koji mi treba????
+    await newNote.save();
     return {
       noteId: newNote._id,
       title: title,

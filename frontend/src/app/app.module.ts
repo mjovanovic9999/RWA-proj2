@@ -36,7 +36,7 @@ import { UserEffect } from './store/user/user.effects';
     HomeModule,
     StartScreenModule,
   ],
-  providers: [UserService, NotesService], //proba da l treba
+  providers: [UserService, NotesService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

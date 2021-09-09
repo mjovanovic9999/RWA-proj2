@@ -44,8 +44,8 @@ import { userReducer } from '../store/user/user.reducer';
     MatInputModule,
     FontAwesomeModule,
     MatSelectModule,
-    BrowserAnimationsModule, //visak
-    BrowserModule, //isto
+    BrowserAnimationsModule, 
+    BrowserModule, 
     FormsModule,
     MatDialogModule,
     MatDividerModule,

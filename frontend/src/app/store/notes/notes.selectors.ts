@@ -17,7 +17,7 @@ export const selectAllNotes = createSelector(
         noteId: note!.noteId,
         title: note!.title,
         content: note!.content,
-      })) //mozda moze bolje<Note>note
+      }))
 );
 
 export const selectSelectedNoteId = createSelector(
@@ -33,5 +33,5 @@ export const selectAllNotesAsDictionary = createSelector(
 export const selectSelectedNote = createSelector(
   selectAllNotesAsDictionary,
   selectSelectedNoteId,
-  (allNotes, noteId) => allNotes[noteId] /**??null */
+  (allNotes, noteId) => allNotes[noteId]
 );

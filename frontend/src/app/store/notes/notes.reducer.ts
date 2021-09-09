@@ -36,15 +36,13 @@ export const notesReducer = createReducer(
     )
   ),
   on(Actions.updateNotesSuccess, (state, { noteId, title, content }) => {
-    ///
-    //const note: Note = { noteId: noteId, title: title, content: content };
     const pom: Update<Note> = {
       id: noteId,
-      changes: ({
+      changes: {
         noteId: noteId,
         title: title,
         content: content,
-      }),
+      },
     };
     console.log('bate uopste nmg pojma radi li ovo');
     return adapter.updateOne(pom, state);

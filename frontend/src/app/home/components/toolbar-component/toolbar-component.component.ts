@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 
 import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faArrowAltCircleLeft } from '@fortawesome/free-regular-svg-icons';
+import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/app.state';
+import { logout, updateAccount } from 'src/app/store/user/user.actions';
 import { AccountDialogComponent } from '../account-dialog/account-dialog.component';
 
 @Component({
@@ -11,24 +15,38 @@ import { AccountDialogComponent } from '../account-dialog/account-dialog.compone
 })
 export class ToolbarComponentComponent implements OnInit {
   faUser = faUser;
-
+  faArrowAltCircleLeft = faArrowAltCircleLeft;
   openAccountDialog = false;
 
-  constructor(public accountDialog: MatDialog) {}
+  constructor(
+    public accountDialog: MatDialog,
+    private store: Store<AppState>
+  ) {}
 
   ngOnInit(): void {}
 
   openAccount() {
     let dialog = this.accountDialog.open(AccountDialogComponent, {
-      data: { username: 'Toma123' },
       width: '350px',
       minHeight: '200px',
       maxHeight: '600px',
       disableClose: true,
     });
     dialog.afterClosed().subscribe((result) => {
-      console.log(result);
+      result.newPassword != null &&
+      result.newPasswordRepeat != null &&
+      result.oldPassword != null
+        ? this.store.dispatch(
+            updateAccount({
+              oldPassword: result.oldPassword,
+              newPassword: result.newPassword,
+              newPasswordRepeat: result.newPasswordRepeat,
+            })
+          )
+        : null;
     });
   }
+  logOut() {
+    this.store.dispatch(logout());
+  }
 }
-//primer <input matInput [(ngModel)]="name">

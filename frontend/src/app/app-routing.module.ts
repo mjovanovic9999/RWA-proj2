@@ -10,7 +10,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'newaccount', component: NewAccountComponent },
   { path: 'home', component: HomeComponent },
-  { path: '**', component: LoginComponent },//ili 404
+  { path: '**', component: LoginComponent },
 
 ];
 

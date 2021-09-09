@@ -1,8 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  NotFoundException,
-  Req,
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
@@ -19,18 +17,22 @@ export class UsersService {
     private jwtService: JwtService,
   ) {}
 
-  async registerUser(username: string, password: string): Promise<User> {
+  async registerUser( response: Response, username: string, password: string)  {
     if (await this.findUser(username)) {
       throw new BadRequestException('Username Already Exists!');
     }
     const hashedPassword = await bcrypt.hash(password, 12);
-
     const newUser = new this.userModel({
       username: username,
-      hashedPassword: hashedPassword,
-    });
+      password: hashedPassword,
+    }); await newUser.save();
+    const jwt = await this.jwtService.signAsync({ username: username });
 
-    return await newUser.save();
+    response.cookie('jwt', jwt, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'none',
+    });
   }
 
   async login(response: Response, username: string, password: string) {
@@ -43,7 +45,11 @@ export class UsersService {
 
     const jwt = await this.jwtService.signAsync({ username: user.username });
 
-    response.cookie('jwt', jwt, { httpOnly: true, secure: false ,sameSite: 'none' }); //tako li se zavrsava?????
+    response.cookie('jwt', jwt, {
+      httpOnly: true,
+      secure: false,
+      sameSite: 'none',
+    });
   }
 
   async findUser(username: string): Promise<User> {
@@ -70,15 +76,14 @@ export class UsersService {
   ) {
     if (newPassword !== newPasswordRepeat)
       throw new BadRequestException("New passwords don't match");
-    ////u fju vrv
     const user = await this.findUser(await this.getUsername(request));
     if (!user) throw new BadRequestException('invalid credentials');
 
     if (!(await bcrypt.compare(oldPassword, user.password))) {
-      throw new BadRequestException('invalid credentials'); //mozda inavlid pass username
+      throw new BadRequestException('invalid credentials');
     }
-    ///
-    user.password = newPassword;
+    user.password = await bcrypt.hash(newPassword, 12);
+    
     await user.save();
   }
 }

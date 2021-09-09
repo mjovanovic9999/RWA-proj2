@@ -11,12 +11,14 @@ export class UsersController {
   async register(
     @Body('username') username: string,
     @Body('password') password: string,
+    @Res({ passthrough: true }) response: Response,
   ) {
-    const user = await this.userService.registerUser(username, password);
+    await this.userService.registerUser(response, username, password);
 
-    return user.username; //da l kao i login da vraca success
+    return {
+      message: 'success',
+    };
   }
-
   @Post('login')
   async login(
     @Body('username') username: string,
